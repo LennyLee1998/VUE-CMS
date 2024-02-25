@@ -1,6 +1,6 @@
 <template>
-  <div class="main">
-    <h2>main</h2>
+  <div class="panel-phone">
+    <h2>panel-phone</h2>
   </div>
 </template>
 
