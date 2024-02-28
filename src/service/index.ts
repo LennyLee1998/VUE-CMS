@@ -1,9 +1,9 @@
 import { LOGIN_TOKEN } from "@/global/constant";
 import { localCache } from "@/utils/cache";
 import { BASE_URL, TIME_OUT } from "./config";
-import HYRequest from "./request";
+import Request from "./request";
 // 可以创建很多实例
-const hyRequest = new HYRequest({
+const cmsRequest = new Request({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
@@ -18,7 +18,7 @@ const hyRequest = new HYRequest({
     }
   }
 });
-export const hyRequest2 = new HYRequest({
+export const request2 = new Request({
   baseURL: "http://codercba.com:1888/airbnb/api/",
   timeout: 8000,
   interceptors: {
@@ -36,4 +36,4 @@ export const hyRequest2 = new HYRequest({
     }
   }
 });
-export default hyRequest;
+export default cmsRequest;

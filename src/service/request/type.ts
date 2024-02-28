@@ -1,6 +1,6 @@
 import type { AxiosRequestConfig, AxiosResponse } from "axios"
 // 针对AxiosRequestConfig配置进行扩展
-export interface HYInterceptor<T = AxiosResponse> {
+export interface Interceptor<T = AxiosResponse> {
   // 拦截器里面的东西也应该有自己的类型
   requestSeccessFn?: (config: AxiosRequestConfig) => AxiosRequestConfig | any
   requestFailureFn?: (err: any) => any
@@ -8,6 +8,6 @@ export interface HYInterceptor<T = AxiosResponse> {
   responseFailureFn?: (err: any) => any
 }
 
-export interface HYRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
-  interceptors?: HYInterceptor<T>
+export interface RequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
+  interceptors?: Interceptor<T>
 }

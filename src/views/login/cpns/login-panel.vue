@@ -9,9 +9,9 @@
             <span class="text">账号登录</span>
           </span>
         </template>
-        <PanelAccount />
+        <PanelAccount ref="accountRef" />
       </el-tab-pane>
-      <el-tab-pane name="password">
+      <el-tab-pane name="phone">
         <template #label>
           <span class="tabs-label">
             <el-icon><Cellphone /></el-icon>
@@ -22,7 +22,7 @@
       </el-tab-pane>
     </el-tabs>
     <div class="pwd">
-      <el-checkbox v-model="keepPwd" label="记住密码" size="large" />
+      <el-checkbox v-model="isKeepPwd" label="记住密码" size="large" />
       <el-link type="primary">忘记密码</el-link>
     </div>
     <div class="login-btn">
@@ -32,16 +32,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 import PanelAccount from "./panel-account.vue";
 import PanelPhone from "./panel-phone.vue";
+import { localCache } from "@/utils/cache";
 
-const keepPwd = ref(true);
+const isKeepPwd = ref<boolean>(localCache.getCache("isKeepPwd") ?? true);
+
+watch(isKeepPwd, (newValue) => {
+  console.log(newValue);
+  localCache.setCache("isKeepPwd", newValue);
+});
+
 const activeName = ref("account");
 
+const accountRef = ref<InstanceType<typeof PanelAccount>>();
 const loginBtnClickHandle = () => {
-  console.log("login");
+  if (activeName.value === "account") {
+    accountRef.value?.loginAction(isKeepPwd.value);
+  }
 };
 </script>
 

@@ -1,13 +1,13 @@
 import axios from "axios"
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
-import type { HYRequestConfig } from "./type"
+import type { RequestConfig } from "./type"
 
 // 拦截器: 在每次网络请求的时候进行拦截, 拦截的时候在界面上显示蒙版Loading/token/修改配置
 
-class HYRequest {
+class Request {
   instance: AxiosInstance
   // request实例 => axios的实例, 也就是一个request的实例
-  constructor(config: HYRequestConfig) {
+  constructor(config: RequestConfig) {
     this.instance = axios.create(config)
 
     // 每个instance实例都添加拦截器
@@ -53,7 +53,7 @@ class HYRequest {
       )
   }
   // 封装网络请求的方法
-  request<T = any>(config: HYRequestConfig<T>) {
+  request<T = any>(config: RequestConfig<T>) {
     // 单次请求的成功拦截处理(自己手动处理,而不是axios处理)
     if (config.interceptors?.requestSeccessFn) {
       // 如果在这个里面有修改新的config,就重新拿到新的config
@@ -79,18 +79,18 @@ class HYRequest {
     })
   }
 
-  get<T = any>(config: HYRequestConfig<T>) {
+  get<T = any>(config: RequestConfig<T>) {
     return this.request({ ...config, method: "GET" })
   }
-  post<T = any>(config: HYRequestConfig<T>) {
+  post<T = any>(config: RequestConfig<T>) {
     return this.request({ ...config, method: "POST" })
   }
-  delete<T = any>(config: HYRequestConfig<T>) {
+  delete<T = any>(config: RequestConfig<T>) {
     return this.request({ ...config, method: "DELETE" })
   }
-  patch<T = any>(config: HYRequestConfig<T>) {
+  patch<T = any>(config: RequestConfig<T>) {
     return this.request({ ...config, method: "PATCH" })
   }
 }
 
-export default HYRequest
+export default Request
