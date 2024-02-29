@@ -41,7 +41,6 @@ import { localCache } from "@/utils/cache";
 const isKeepPwd = ref<boolean>(localCache.getCache("isKeepPwd") ?? true);
 
 watch(isKeepPwd, (newValue) => {
-  console.log(newValue);
   localCache.setCache("isKeepPwd", newValue);
 });
 

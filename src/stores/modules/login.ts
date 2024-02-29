@@ -7,14 +7,14 @@ import router from "@/router";
 import { ElMessage } from "element-plus";
 
 interface ILoginStore {
-  token: string,
-  userMenus: any
+  token: string;
+  userMenus: any;
 }
 
 const useLoginStore = defineStore("login", {
   state: (): ILoginStore => ({
     token: localCache.getCache(LOGIN_TOKEN) ?? "",
-    userMenus: []
+    userMenus: localCache.getCache("userMenus") ?? []
   }),
   actions: {
     async accountLoginAction(account: IAccount) {
@@ -34,7 +34,9 @@ const useLoginStore = defineStore("login", {
         console.log(roleRes);
         const roleId = roleRes.data.id;
         const menuRes = await getMenubyRoleId(roleId);
-        this.userMenus = menuRes.data
+        const userMenus = menuRes.data;
+        this.userMenus = userMenus;
+        localCache.setCache("userMenus", userMenus);
         // 3.页面跳转
         router.push("/main");
       }
