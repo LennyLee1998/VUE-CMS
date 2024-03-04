@@ -1,5 +1,6 @@
 import { LOGIN_TOKEN } from "@/global/constant";
 import { localCache } from "@/utils/cache";
+import { firstMenu } from "@/utils/map-menus";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -8,7 +9,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      redirect: "/login"
+      redirect: "/main"
     },
     {
       path: "/login",
@@ -16,6 +17,7 @@ const router = createRouter({
     },
     {
       path: "/main",
+      name: "main",
       component: () => import("@/views/main/main.vue")
     },
     {
@@ -25,14 +27,15 @@ const router = createRouter({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
   const token = localCache.getCache(LOGIN_TOKEN);
-  if (to.path === "/login") {
-    next();
-  } else if (token) {
-    next();
-  } else {
-    next("/login");
+
+  if (to.path !== "/login" && !token) {
+    return "/login";
+  }
+  if (to.path === "/main") {
+    console.log(firstMenu);
+    return firstMenu?.url;
   }
 });
 
