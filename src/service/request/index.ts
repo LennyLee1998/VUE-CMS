@@ -13,11 +13,6 @@ class Request {
     // 每个instance实例都添加拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        // 可以对config进行修改
-        // config.headers = {
-        //   token: "xxx"
-        // }
-        // loading/token
         return config
       },
       (err) => {
@@ -32,17 +27,6 @@ class Request {
         return err
       }
     )
-
-    // 可以添加多个拦截器,前面的不会被后面的覆盖
-    // if (config.interceptors) { //类型缩小
-    //   this.instance.interceptors.request.use(
-    //     config.interceptors.requestSeccessFn,
-    //     config.interceptors.requestFailureFn),
-    //   this.instance.interceptors.response.use(
-    //     config.interceptors.responseSeccessFn,
-    //     config.interceptors.responseFailureFn)
-    // }
-    //通过可选链去取
     this.instance.interceptors.request.use(
       config.interceptors?.requestSeccessFn,
       config.interceptors?.requestFailureFn

@@ -20,11 +20,15 @@
 import MainMenu from "@/components/main-menu/main-menu.vue";
 import MainHeader from "@/components/main-header/main-header.vue";
 import { ref } from "vue";
+import useMainStore from "@/stores/modules/main/main";
 
 const isCollapse = ref(true);
 function changeFold(isFold: boolean) {
   isCollapse.value = isFold;
 }
+
+const mainStore = useMainStore();
+mainStore.fetchAllListAction();
 </script>
 
 <style lang="less" scoped>
@@ -42,5 +46,6 @@ function changeFold(isFold: boolean) {
 }
 .el-main {
   background-color: #f0f2f5;
+  padding: 20px;
 }
 </style>
