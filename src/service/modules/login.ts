@@ -8,10 +8,10 @@ export function accountLoginRequest(account: IAccount) {
   });
 }
 
-export function getRoleIdByUserId(userId: number) {
+export function getUserInfoById(id: number) {
   return cmsRequest.get({
-    url: `/role/${userId}`
-  });
+    url: `/users/${id}`
+  })
 }
 
 export function getMenubyRoleId(roleId: number) {

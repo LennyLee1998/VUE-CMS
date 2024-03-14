@@ -13,3 +13,9 @@ export function postRoleList(queryInfo = {}) {
     data: queryInfo
   });
 }
+
+export function postEntireMenus() {
+  return cmsRequest.post({
+    url: "/menu/list"
+  });
+}

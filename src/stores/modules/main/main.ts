@@ -1,13 +1,15 @@
-import { postDepartmentList, postRoleList } from "@/service/modules/main/main";
+import { postDepartmentList, postEntireMenus, postRoleList } from "@/service/modules/main/main";
 import { defineStore } from "pinia";
 interface IMainState {
   departmentList: any[];
   roleList: any[];
+  menuList: any[];
 }
 const useMainStore = defineStore("main", {
   state: (): IMainState => ({
     departmentList: [],
-    roleList: []
+    roleList: [],
+    menuList: []
   }),
   actions: {
     async fetchAllListAction() {
@@ -18,6 +20,8 @@ const useMainStore = defineStore("main", {
       ]);
       this.departmentList = departmentRes.data.list;
       this.roleList = roleRes.data.list;
+      const menuRes = await postEntireMenus();
+      this.menuList = menuRes.data.list;
     }
   }
 });

@@ -9,6 +9,7 @@ import {
   postUsersListData
 } from "@/service/modules/main/system";
 import { defineStore } from "pinia";
+import useMainStore from "./main";
 
 interface Istate {
   usersList: any[];
@@ -16,6 +17,7 @@ interface Istate {
   pageList: any[];
   pageTotalCount: number;
 }
+
 const useSystemStore = defineStore("system", {
   state: (): Istate => ({
     usersList: [],
@@ -57,16 +59,23 @@ const useSystemStore = defineStore("system", {
       const deleteRes = await deletePage(pageName, id);
       console.log(deleteRes);
       this.postPageListDataAction(pageName, { offset: 0, size: 10 });
+      const mainStore = useMainStore();
+      mainStore.fetchAllListAction();
     },
     async newPageAction(pageName: string, userInfo: any) {
       const newRes = await newPage(pageName, userInfo);
       console.log(newRes);
       this.postPageListDataAction(pageName, { offset: 0, size: 10 });
+
+      const mainStore = useMainStore();
+      mainStore.fetchAllListAction();
     },
     async editPageAction(pageName: string, userInfo: any) {
       const editRes = await editPage(pageName, userInfo);
       console.log(editRes);
       this.postPageListDataAction(pageName, { offset: 0, size: 10 });
+      const mainStore = useMainStore();
+      mainStore.fetchAllListAction();
     }
   }
 });

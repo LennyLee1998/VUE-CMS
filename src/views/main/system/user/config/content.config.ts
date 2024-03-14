@@ -1,4 +1,9 @@
 const contentConfig = {
+  header: {
+    title: "用户列表",
+    btnTitle: "新建用户"
+  },
+  pageName: "users",
   tableItems: [
     {
       type: "selection",
@@ -28,13 +33,25 @@ const contentConfig = {
       label: "手机号码"
     },
     {
-      type: "slot",
-      width: "100",
+      type: "state",
+      label: "状态",
       prop: "enable",
-      label: "手机号码"
+      width: "100px"
     },
     {
-      
+      type: "timer",
+      prop: "createAt",
+      label: "创建时间"
+    },
+    {
+      type: "timer",
+      prop: "updateAt",
+      label: "更新时间"
+    },
+    {
+      type: "handler",
+      label: "操作",
+      width: "150px"
     }
   ]
 };

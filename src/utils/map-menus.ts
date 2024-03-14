@@ -59,3 +59,36 @@ export function mapPathToBreadcrumb(path: string, userMenus: any) {
   }
   return breadcrumb;
 }
+
+// 找最底层的id
+export function mapMenuListToIds(menuList: any[]) {
+  const ids: number[] = [];
+
+  function recurseGetId(menus: any[]) {
+    for (const item of menus) {
+      if (item.children) {
+        recurseGetId(item.children);
+      } else {
+        ids.push(item.id);
+      }
+    }
+  }
+  recurseGetId(menuList);
+
+  return ids;
+}
+
+export function mapMenusToPermissions(menus: any[]) {
+  const permissions: string[] = [];
+  function recurseGetPermissions(menu: any[]) {
+    for (const item of menu) {
+      if (item.type === 3) {
+        permissions.push(item.permission);
+      } else {
+        recurseGetPermissions(item.children ?? []);
+      }
+    }
+  }
+  recurseGetPermissions(menus);
+  return permissions;
+}
